@@ -2,6 +2,10 @@ package nl.novi.eindopdracht.AddActivity;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ActivityService {
 
@@ -41,6 +45,17 @@ public class ActivityService {
         dto.setActivityInfo(activity.getActivityInfo());
 
         return dto;
+    }
+
+    public List<ActivityOutputDto> getAllActivities () {
+        List <Activity> activityList = activityRepository.findAll();
+        List <ActivityOutputDto> activityDtoList = new ArrayList<>();
+
+        for (Activity activity : activityList) {
+            ActivityOutputDto dto = transferToDto(activity);
+            activityDtoList.add(dto);
+        }
+        return activityDtoList;
     }
 
 }
