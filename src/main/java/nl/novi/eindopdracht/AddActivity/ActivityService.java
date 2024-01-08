@@ -95,10 +95,12 @@ public class ActivityService {
             }
             Activity geupdatedActivity = activityRepository.save(activity1);
             return transferToDto(geupdatedActivity);
-        } else {
+        }
+        else {
 
             throw new RecordNotFoundException("Geen activiteit gevonden.");
         }
+
     }
 
     public void deleteActivity (@RequestBody Long id) {
