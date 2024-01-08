@@ -1,7 +1,10 @@
 package nl.novi.eindopdracht.AddActivity;
 
+import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +59,50 @@ public class ActivityService {
             activityDtoList.add(dto);
         }
         return activityDtoList;
+    }
+
+    public ActivityOutputDto getActivityById (Long id) {
+        Optional<Activity> activityOptional = activityRepository.findById(id);
+        if (activityOptional.isPresent()) {
+            Activity activity = activityOptional.get();
+            return transferToDto(activity);
+        } else {
+            throw new RecordNotFoundException("Geen activiteit gevonden");
+        }
+    }
+
+    public ActivityOutputDto updateActivity (Long id, ActivityInputDto updateActivity) {
+        Optional<Activity> activity = activityRepository.findById(id);
+        if (activity.isPresent()) {
+            Activity activity1 = activity.get();
+            if (updateActivity.getName() != null) {
+                activity1.setName(updateActivity.getName());
+            }
+            if (updateActivity.getParticipants() != 0) {
+                activity1.setParticipants(updateActivity.getParticipants());
+            }
+            if (updateActivity.getTeacher() != null) {
+                activity1.setTeacher(updateActivity.getTeacher());
+            }
+            if (updateActivity.getDate() != null) {
+                activity1.setDate(updateActivity.getDate());
+            }
+            if (updateActivity.getTime() != null) {
+                activity1.setTime(updateActivity.getTime());
+            }
+            if (updateActivity.getActivityInfo() != null) {
+                activity1.setActivityInfo(updateActivity.getActivityInfo());
+            }
+            Activity geupdatedActivity = activityRepository.save(activity1);
+            return transferToDto(geupdatedActivity);
+        } else {
+
+            throw new RecordNotFoundException("Geen activiteit gevonden.");
+        }
+    }
+
+    public void deleteActivity (@RequestBody Long id) {
+        activityRepository.deleteById(id);
     }
 
 }

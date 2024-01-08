@@ -1,12 +1,11 @@
 package nl.novi.eindopdracht.AddActivity;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class ActivityController {
@@ -25,10 +24,28 @@ public class ActivityController {
     }
 
     @GetMapping("/activities")
-    public ResponseEntity<List<ActivityOutputDto>> getActivity () {
+    public ResponseEntity<List<ActivityOutputDto>> getAllActivity () {
         List<ActivityOutputDto> dtos;
         dtos = activityService.getAllActivities();
         return ResponseEntity.ok().body(dtos);
+    }
+
+    @GetMapping("/activities/{id}")
+    public ResponseEntity<ActivityOutputDto> getActivityById (@PathVariable ("id") Long id) {
+        ActivityOutputDto dto = activityService.getActivityById(id);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @PutMapping("/activities/{id}")
+    public ResponseEntity<Object> updateActivity (@PathVariable Long id, @Valid @RequestBody ActivityInputDto updateActivity) {
+        ActivityOutputDto dto = activityService.updateActivity(id, updateActivity);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping ("/activities/{id}")
+    public ResponseEntity<Object> deleteActivity (@PathVariable Long id) {
+        activityService.deleteActivity(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
