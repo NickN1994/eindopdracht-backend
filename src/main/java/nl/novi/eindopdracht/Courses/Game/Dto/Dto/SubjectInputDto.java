@@ -1,46 +1,32 @@
-package nl.novi.eindopdracht.Courses.Models;
-
+package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
 import jakarta.persistence.*;
+//import nl.novi.eindopdracht.Courses.Models.Course;
+import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
 
 import java.util.List;
 
-@Entity
-public class Subject {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class SubjectInputDto {
 
     private String nameSubject;
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
-    private Course course;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "course_id")
+//    private Course course;
 
     @OneToMany(mappedBy = "subject")
     private List<Information> informationList;
 
-    public Subject(Long id, String nameSubject, Course course, List<Information> informationList) {
-        this.id = id;
+    public SubjectInputDto(String nameSubject, List<Information> informationList) {
         this.nameSubject = nameSubject;
-        this.course = course;
         this.informationList = informationList;
     }
 
-    public Subject(String nameSubject) {
+    public SubjectInputDto(String nameSubject) {
         this.nameSubject = nameSubject;
     }
 
-    public Subject() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public SubjectInputDto() {
     }
 
     public String getNameSubject() {
@@ -51,14 +37,6 @@ public class Subject {
         this.nameSubject = nameSubject;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     public List<Information> getInformationList() {
         return informationList;
     }
@@ -66,6 +44,5 @@ public class Subject {
     public void setInformationList(List<Information> informationList) {
         this.informationList = informationList;
     }
-
 
 }

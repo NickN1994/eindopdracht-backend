@@ -1,8 +1,8 @@
-package nl.novi.eindopdracht.Courses.Dto.Subject;
+package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
 import jakarta.persistence.*;
-import nl.novi.eindopdracht.Courses.Models.Course;
-import nl.novi.eindopdracht.Courses.Models.Information;
+
+import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
 
 import java.util.List;
 
@@ -14,17 +14,16 @@ public class SubjectOutputDto {
 
     private String nameSubject;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
-    private Course course;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "course_id")
+//    private Course course;
 
     @OneToMany(mappedBy = "subject")
     private List<Information> informationList;
 
-    public SubjectOutputDto(Long id, String nameSubject, Course course, List<Information> informationList) {
+    public SubjectOutputDto(Long id, String nameSubject, List<Information> informationList) {
         this.id = id;
         this.nameSubject = nameSubject;
-        this.course = course;
         this.informationList = informationList;
     }
 
@@ -49,14 +48,6 @@ public class SubjectOutputDto {
 
     public void setNameSubject(String nameSubject) {
         this.nameSubject = nameSubject;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 
     public List<Information> getInformationList() {

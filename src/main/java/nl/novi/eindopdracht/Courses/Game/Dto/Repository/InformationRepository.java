@@ -1,6 +1,6 @@
-package nl.novi.eindopdracht.Courses.Repository;
+package nl.novi.eindopdracht.Courses.Game.Dto.Repository;
 
-import nl.novi.eindopdracht.Courses.Models.Information;
+import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InformationRepository extends JpaRepository<Information, Long> {

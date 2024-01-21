@@ -1,52 +1,40 @@
-package nl.novi.eindopdracht.Courses.Dto.Information;
+package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
 import jakarta.persistence.*;
-import nl.novi.eindopdracht.Courses.Models.Course;
-import nl.novi.eindopdracht.Courses.Models.Subject;
 
-public class InformationOutputDto {
+import nl.novi.eindopdracht.Courses.Game.Dto.Models.Subject;
 
-    @Id
-    @GeneratedValue
-    Long id;
+public class InformationInputDto {
+
 
     private String title;
     private String content;
     private String videoUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
-    private Course course;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "course_id")
+//    private Course course;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    public InformationOutputDto(Long id, String title, String content, String videoUrl, Course course, Subject subject) {
-        this.id = id;
+    public InformationInputDto(String title, String content, String videoUrl, Subject subject) {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
-        this.course = course;
         this.subject = subject;
     }
 
-    public InformationOutputDto(String title, String content, String videoUrl) {
+    public InformationInputDto(String title, String content, String videoUrl) {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
     }
 
-    public InformationOutputDto() {
+    public InformationInputDto() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -70,14 +58,6 @@ public class InformationOutputDto {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 
     public Subject getSubject() {

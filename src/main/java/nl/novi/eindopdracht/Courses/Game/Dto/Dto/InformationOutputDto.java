@@ -1,10 +1,9 @@
-package nl.novi.eindopdracht.Courses.Models;
-
+package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
 import jakarta.persistence.*;
+import nl.novi.eindopdracht.Courses.Game.Dto.Models.Subject;
 
-@Entity
-public class Information {
+public class InformationOutputDto {
 
     @Id
     @GeneratedValue
@@ -14,30 +13,29 @@ public class Information {
     private String content;
     private String videoUrl;
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
-    private Course course;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "course_id")
+//    private Course course;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    public Information(Long id, String title, String content, String videoUrl, Course course, Subject subject) {
+    public InformationOutputDto(Long id, String title, String content, String videoUrl, Subject subject) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
-        this.course = course;
         this.subject = subject;
     }
 
-    public Information(String title, String content, String videoUrl) {
+    public InformationOutputDto(String title, String content, String videoUrl) {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
     }
 
-    public Information() {
+    public InformationOutputDto() {
     }
 
     public Long getId() {
@@ -70,14 +68,6 @@ public class Information {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 
     public Subject getSubject() {
