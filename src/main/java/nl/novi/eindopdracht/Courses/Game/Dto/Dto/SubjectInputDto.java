@@ -4,22 +4,25 @@ import jakarta.persistence.*;
 //import nl.novi.eindopdracht.Courses.Models.Course;
 import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectInputDto {
 
     private String nameSubject;
+    private List<Long> informationIds;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "course_id")
 //    private Course course;
 
-    @OneToMany(mappedBy = "subject")
-    private List<Information> informationList;
+//    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Information> informationList = new ArrayList<>();
 
-    public SubjectInputDto(String nameSubject, List<Information> informationList) {
+    public SubjectInputDto(String nameSubject, List<Long> informationIds) {
         this.nameSubject = nameSubject;
-        this.informationList = informationList;
+        this.informationIds = informationIds;
+//        this.informationList = informationList;
     }
 
     public SubjectInputDto(String nameSubject) {
@@ -37,12 +40,14 @@ public class SubjectInputDto {
         this.nameSubject = nameSubject;
     }
 
-    public List<Information> getInformationList() {
-        return informationList;
+    public List<Long> getInformationIds() {
+        return informationIds;
     }
 
-    public void setInformationList(List<Information> informationList) {
-        this.informationList = informationList;
+    public void setInformationIds(List<Long> informationIds) {
+        this.informationIds = informationIds;
     }
+
+
 
 }

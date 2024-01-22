@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 
 import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectOutputDto {
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long id;
 
     private String nameSubject;
@@ -18,10 +19,9 @@ public class SubjectOutputDto {
 //    @JoinColumn(name = "course_id")
 //    private Course course;
 
-    @OneToMany(mappedBy = "subject")
-    private List<Information> informationList;
-
-    public SubjectOutputDto(Long id, String nameSubject, List<Information> informationList) {
+//    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InformationOutputDto> informationList = new ArrayList<>();
+    public SubjectOutputDto(Long id, String nameSubject, List<InformationOutputDto> informationList) {
         this.id = id;
         this.nameSubject = nameSubject;
         this.informationList = informationList;
@@ -50,13 +50,12 @@ public class SubjectOutputDto {
         this.nameSubject = nameSubject;
     }
 
-    public List<Information> getInformationList() {
+
+    public List<InformationOutputDto> getInformationList() {
         return informationList;
     }
 
-    public void setInformationList(List<Information> informationList) {
+    public void setInformationList(List<InformationOutputDto> informationList) {
         this.informationList = informationList;
     }
-
-
 }

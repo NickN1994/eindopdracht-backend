@@ -17,6 +17,8 @@ public class ActivityController {
         this.activityService = activityService;
     }
 
+
+    // URI TOEVOEGEN
     @PostMapping("/add-activity")
     public ResponseEntity<ActivityOutputDto> addActivity (@RequestBody ActivityInputDto activityInputDto) {
         ActivityOutputDto dto = activityService.addActivity(activityInputDto);

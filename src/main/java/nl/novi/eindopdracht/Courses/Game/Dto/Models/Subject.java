@@ -4,6 +4,7 @@ package nl.novi.eindopdracht.Courses.Game.Dto.Models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,15 +14,15 @@ public class Subject {
     @GeneratedValue
     private Long id;
 
-    @NotBlank(message = "NameSubject is verplicht")
+    @NotBlank(message = "Naam onderwerp is verplicht")
     private String nameSubject;
 
 //    @ManyToOne (fetch = FetchType.EAGER)
 //    @JoinColumn(name = "course_id")
 //    private Course course;
 
-    @OneToMany(mappedBy = "subject")
-    private List<Information> informationList;
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Information> informationList = new ArrayList<>();
 
     public Subject(Long id, String nameSubject, List<Information> informationList) {
         this.id = id;
