@@ -1,36 +1,28 @@
 package nl.novi.eindopdracht.Courses.Game.Dto.Models;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Information {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
+    @NotBlank(message = "Naam onderwerp is verplicht")
     private String title;
+    @NotBlank(message = "Content veld is verplicht")
+    @Lob
     private String content;
     private String videoUrl;
 
-//    @ManyToOne (fetch = FetchType.EAGER)
-//    @JoinColumn(name = "course_id")
-//    private Course course;
-
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
-
-    public Information(Long id, String title, String content, String videoUrl, Subject subject) {
+    public Information(Long id, String title, String content, String videoUrl) {
         this.id = id;
-        this.title = title;
-        this.content = content;
-        this.videoUrl = videoUrl;
-        this.subject = subject;
-    }
-
-    public Information(String title, String content, String videoUrl) {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
@@ -71,11 +63,4 @@ public class Information {
         this.videoUrl = videoUrl;
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
 }

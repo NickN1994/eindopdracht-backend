@@ -1,32 +1,16 @@
 package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
-import jakarta.persistence.*;
 
-import nl.novi.eindopdracht.Courses.Game.Dto.Models.Subject;
 
 public class InformationInputDto {
 
-
+    private Long id;
     private String title;
     private String content;
     private String videoUrl;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "course_id")
-//    private Course course;
-
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
-
-    public InformationInputDto(String title, String content, String videoUrl, Subject subject) {
-        this.title = title;
-        this.content = content;
-        this.videoUrl = videoUrl;
-        this.subject = subject;
-    }
-
-    public InformationInputDto(String title, String content, String videoUrl) {
+    public InformationInputDto(Long id, String title, String content, String videoUrl) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
@@ -35,6 +19,13 @@ public class InformationInputDto {
     public InformationInputDto() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -58,13 +49,5 @@ public class InformationInputDto {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 }

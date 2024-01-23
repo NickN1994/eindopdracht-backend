@@ -1,35 +1,14 @@
 package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
 
-import jakarta.persistence.*;
-import nl.novi.eindopdracht.Courses.Game.Dto.Models.Subject;
-
 public class InformationOutputDto {
 
-    @Id
-    @GeneratedValue
-    Long id;
-
+    private Long id;
     private String title;
     private String content;
     private String videoUrl;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "course_id")
-//    private Course course;
-
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
-
-    public InformationOutputDto(Long id, String title, String content, String videoUrl, Subject subject) {
+    public InformationOutputDto(Long id, String title, String content, String videoUrl) {
         this.id = id;
-        this.title = title;
-        this.content = content;
-        this.videoUrl = videoUrl;
-        this.subject = subject;
-    }
-
-    public InformationOutputDto(String title, String content, String videoUrl) {
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
@@ -68,13 +47,5 @@ public class InformationOutputDto {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 }
