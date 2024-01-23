@@ -22,12 +22,17 @@ public class SubjectService {
         this.subjectRepository = subjectRepository;
     }
 
+
+    //POST
     public SubjectOutputDto createSubject(@Valid SubjectInputDto dto) {
-        Subject subject = transferToSubject(dto);
-        subjectRepository.save(subject);
-        return transferToDto(subject);
+
+            Subject subject = transferToSubject(dto);
+            subjectRepository.save(subject);
+            return transferToDto(subject);
+
     }
 
+    //GET ALL
     public List<SubjectOutputDto> getAllSubjects () {
         List<Subject> subjectList = subjectRepository.findAll();
         List<SubjectOutputDto> subjectOutputDtoList = new ArrayList<>();
@@ -40,6 +45,7 @@ public class SubjectService {
         return subjectOutputDtoList;
     }
 
+    //GET BY NAME
     public SubjectOutputDto getSubjectByNameSubject (String nameSubject) {
         Optional<Subject> subjectOptional = subjectRepository.findByNameSubject(nameSubject);
         if (subjectOptional.isPresent()) {
@@ -50,6 +56,7 @@ public class SubjectService {
         }
     }
 
+    //GET BY ID
     public SubjectOutputDto getSubjectById(Long id) {
         Optional<Subject> subjectOptional = subjectRepository.findById(id);
         if (subjectOptional.isPresent()) {
@@ -60,6 +67,7 @@ public class SubjectService {
         }
     }
 
+    //PUT
     public SubjectOutputDto updateSubject (Long id, SubjectInputDto subjectInputDto) {
         Optional <Subject> subjectOptional = subjectRepository.findById(id);
         if (subjectOptional.isPresent()) {
@@ -74,7 +82,8 @@ public class SubjectService {
         }
     }
 
-    public SubjectOutputDto deleteSubject (@PathVariable Long id) {
+    //DELETE
+    public void deleteSubject (@PathVariable Long id) {
         Optional<Subject> subjectOptional = subjectRepository.findById(id);
         if (subjectOptional.isPresent()) {
             subjectRepository.deleteById(id);

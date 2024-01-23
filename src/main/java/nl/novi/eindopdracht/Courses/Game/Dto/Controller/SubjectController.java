@@ -7,6 +7,8 @@ import nl.novi.eindopdracht.Courses.Game.Dto.Dto.SubjectOutputDto;
 import nl.novi.eindopdracht.Courses.Game.Dto.Service.SubjectService;
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,16 +25,29 @@ public class SubjectController {
         this.subjectService = subjectService;
     }
 
+    // HIER OBJECT IPV SUBJECTOUTPUTDTO anders krijg ik foutmelding op de return bij een error
     @PostMapping("/subject")
-    public ResponseEntity<SubjectOutputDto> createSubject (@RequestBody SubjectInputDto subjectInputDto) {
-        SubjectOutputDto dto = subjectService.createSubject(subjectInputDto);
+    public ResponseEntity<Object> createSubject (@RequestBody SubjectInputDto subjectInputDto, BindingResult br) {
+        if (br.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : br.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
 
-        URI uri = ServletUriComponentsBuilder
-                        .fromCurrentRequest()
-                        .path("/{id}")
-                        .buildAndExpand(dto.getId())
-                        .toUri();
-        return ResponseEntity.created(uri).body(dto);
+            SubjectOutputDto dto = subjectService.createSubject(subjectInputDto);
+
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(dto.getId())
+                    .toUri();
+            return ResponseEntity.created(uri).body(dto);
+        }
     }
 
     @GetMapping("/subject")
@@ -50,8 +65,8 @@ public class SubjectController {
 
     @GetMapping("/subject/name/{nameSubject}")
     public ResponseEntity<SubjectOutputDto> getSubjectByName (@PathVariable String nameSubject) {
-        SubjectOutputDto television = subjectService.getSubjectByNameSubject(nameSubject);
-        return ResponseEntity.ok().body(television);
+        SubjectOutputDto subject = subjectService.getSubjectByNameSubject(nameSubject);
+        return ResponseEntity.ok().body(subject);
     }
 
     @PutMapping("/subject/{id}")
