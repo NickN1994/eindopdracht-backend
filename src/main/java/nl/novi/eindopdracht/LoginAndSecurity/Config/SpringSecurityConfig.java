@@ -81,19 +81,17 @@ public class SpringSecurityConfig {
                                         .requestMatchers(HttpMethod.GET,"/activities").hasAnyRole()
                                         //Ophalen van activity met id
                                         .requestMatchers(HttpMethod.GET,"/activities/{id}").hasAnyRole()
+                                        //toevoegen van informatie aan de game course
+                                        .requestMatchers(HttpMethod.POST, "/post-information").hasRole("ADMIN")
+                                        //Aanpassen van informatie van game course
+                                        .requestMatchers(HttpMethod.PUT, "/information/{id}").hasRole("ADMIN")
+                                        // verwijderen van informatie van game course
+                                        .requestMatchers(HttpMethod.DELETE, "/information/{id}").hasRole("ADMIN")
+                                        //ophalen van alle content van course
+                                        .requestMatchers(HttpMethod.GET,"/information").hasAnyRole()
+                                        //versturen bericht contact formulier
+                                        .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")
 
-
-
-                                        .requestMatchers(HttpMethod.DELETE, "/cimodulen/**").hasRole("ADMIN")
-
-                                        .requestMatchers(HttpMethod.POST, "/addremotecontroller").hasRole("ADMIN")
-                                        .requestMatchers(HttpMethod.GET, "/remotecontroller/**").hasRole("ADMIN")
-
-                                        .requestMatchers(HttpMethod.POST, "/televisions").hasRole("ADMIN")
-                                        .requestMatchers(HttpMethod.GET, "/televisions/**").hasRole("ADMIN")
-
-                                        .requestMatchers(HttpMethod.POST, "/addwallbracket").hasRole("ADMIN")
-                                        .requestMatchers(HttpMethod.GET, "/wallbracket/**").hasRole("ADMIN")
 
                                         .requestMatchers("/authenticated").authenticated()
                                         .requestMatchers("/authenticate").permitAll()/*alleen dit punt mag toegankelijk zijn voor niet ingelogde gebruikers*/
