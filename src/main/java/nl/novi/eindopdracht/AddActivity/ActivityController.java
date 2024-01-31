@@ -38,13 +38,13 @@ public class ActivityController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping("/activities/{id}")
+    @PutMapping("/edit-activities/{id}")
     public ResponseEntity<Object> updateActivity (@PathVariable Long id, @Valid @RequestBody ActivityInputDto updateActivity) {
         ActivityOutputDto dto = activityService.updateActivity(id, updateActivity);
         return ResponseEntity.ok().body(dto);
     }
 
-    @DeleteMapping ("/activities/{id}")
+    @DeleteMapping ("/edit-activities/{id}")
     public ResponseEntity<Object> deleteActivity (@PathVariable Long id) {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent().build();

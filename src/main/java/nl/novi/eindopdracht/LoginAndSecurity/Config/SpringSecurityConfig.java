@@ -57,13 +57,33 @@ public class SpringSecurityConfig {
                                         // Wanneer je deze uncomments, staat je hele security open. Je hebt dan alleen nog een jwt nodig.
 //                .requestMatchers("/**").permitAll()
 //                                        .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+                                        //Inloggen
                                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                                        //profiel informatie ophalen
+                                        .requestMatchers(HttpMethod.GET,"/users/{username}").hasAnyRole()
+                                        //Hele lijst users ophalen
                                         .requestMatchers(HttpMethod.GET,"/users/users").hasRole("ADMIN")
-//                                        .requestMatchers(HttpMethod.GET,"/users/**").permitAll()
-                                        .requestMatchers(HttpMethod.PUT,"/users/**").hasRole("ADMIN")
-                                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                                        //Profiel informatie wijzigen
+                                        .requestMatchers(HttpMethod.PUT,"/users/{username}").hasAnyRole()
+                                        //Verwijderen users
+                                        .requestMatchers(HttpMethod.DELETE, "/users/{username}").hasRole("ADMIN")
+                                        //addUserAuthority
+                                        .requestMatchers(HttpMethod.POST, "/users/{username}/authorities").hasRole("ADMIN")
+                                        //deleteUserAuthority
+                                        .requestMatchers(HttpMethod.DELETE, "/users/{username}/authorities/{authority}").hasRole("ADMIN")
+                                        //Toevoegen van activiteit
+                                        .requestMatchers(HttpMethod.POST, "/add-activity").hasRole("ADMIN")
+                                        //Aanpassen van activiteit
+                                        .requestMatchers(HttpMethod.PUT, "/edit-activities/{id}").hasRole("ADMIN")
+                                        // verwijderen van activiteit
+                                        .requestMatchers(HttpMethod.DELETE, "/edit-activities/{id}").hasRole("ADMIN")
+                                        //Ophalen van alle activiteiten
+                                        .requestMatchers(HttpMethod.GET,"/activities").hasAnyRole()
+                                        //Ophalen van activity met id
+                                        .requestMatchers(HttpMethod.GET,"/activities/{id}").hasAnyRole()
 
-                                        .requestMatchers(HttpMethod.POST, "/addcimodule").hasRole("ADMIN")
+
+
                                         .requestMatchers(HttpMethod.DELETE, "/cimodulen/**").hasRole("ADMIN")
 
                                         .requestMatchers(HttpMethod.POST, "/addremotecontroller").hasRole("ADMIN")
