@@ -1,22 +1,34 @@
-package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
+package nl.novi.eindopdracht.Courses.Game.Models;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotBlank;
 
-public class InformationInputDto {
+@Entity
+public class Information {
 
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @NotBlank(message = "Naam onderwerp is verplicht")
     private String title;
+    @NotBlank(message = "Content veld is verplicht")
+    @Lob
     private String content;
     private String videoUrl;
 
-    public InformationInputDto(Long id, String title, String content, String videoUrl) {
+    public Information(Long id, String title, String content, String videoUrl) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.videoUrl = videoUrl;
     }
 
-    public InformationInputDto() {
+    public Information() {
     }
 
     public Long getId() {
@@ -50,4 +62,5 @@ public class InformationInputDto {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
+
 }

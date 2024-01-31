@@ -1,10 +1,10 @@
-package nl.novi.eindopdracht.Courses.Game.Dto.Service;
+package nl.novi.eindopdracht.Courses.Game.Service;
 
 import jakarta.validation.Valid;
-import nl.novi.eindopdracht.Courses.Game.Dto.Dto.InformationInputDto;
-import nl.novi.eindopdracht.Courses.Game.Dto.Dto.InformationOutputDto;
-import nl.novi.eindopdracht.Courses.Game.Dto.Models.Information;
-import nl.novi.eindopdracht.Courses.Game.Dto.Repository.InformationRepository;
+import nl.novi.eindopdracht.Courses.Game.Dto.InformationInputDto;
+import nl.novi.eindopdracht.Courses.Game.Dto.InformationOutputDto;
+import nl.novi.eindopdracht.Courses.Game.Models.Information;
+import nl.novi.eindopdracht.Courses.Game.Repository.InformationRepository;
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;

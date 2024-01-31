@@ -27,7 +27,6 @@ public class Activity {
     @NotBlank
     private String time;
     @NotBlank
-    @Size (max = 500, message = "De informatie over de activiteit mag niet langer dan 500 karakters zijn.")
     private String activityInfo;
 
 

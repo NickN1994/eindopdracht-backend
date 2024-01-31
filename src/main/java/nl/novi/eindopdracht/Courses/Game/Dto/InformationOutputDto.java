@@ -1,4 +1,4 @@
-package nl.novi.eindopdracht.Courses.Game.Dto.Dto;
+package nl.novi.eindopdracht.Courses.Game.Dto;
 
 public class InformationOutputDto {
 

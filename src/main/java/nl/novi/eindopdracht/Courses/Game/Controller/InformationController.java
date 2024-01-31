@@ -1,10 +1,10 @@
-package nl.novi.eindopdracht.Courses.Game.Dto.Controller;
+package nl.novi.eindopdracht.Courses.Game.Controller;
 
 
 import jakarta.validation.Valid;
-import nl.novi.eindopdracht.Courses.Game.Dto.Dto.InformationInputDto;
-import nl.novi.eindopdracht.Courses.Game.Dto.Dto.InformationOutputDto;
-import nl.novi.eindopdracht.Courses.Game.Dto.Service.InformationService;
+import nl.novi.eindopdracht.Courses.Game.Dto.InformationInputDto;
+import nl.novi.eindopdracht.Courses.Game.Dto.InformationOutputDto;
+import nl.novi.eindopdracht.Courses.Game.Service.InformationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

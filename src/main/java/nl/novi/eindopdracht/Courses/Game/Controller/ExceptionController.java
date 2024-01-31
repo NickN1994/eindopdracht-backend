@@ -1,4 +1,4 @@
-package nl.novi.eindopdracht.Courses.Game.Dto.Controller;
+package nl.novi.eindopdracht.Courses.Game.Controller;
 
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import org.apache.coyote.BadRequestException;
