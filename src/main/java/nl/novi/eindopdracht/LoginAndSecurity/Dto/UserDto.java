@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class UserDto {
 
+//    public String name;
+
     public String username;
     public String password;
     public Boolean enabled;
@@ -14,6 +16,16 @@ public class UserDto {
     public String email;
     @JsonSerialize
     public Set<Authority> authorities;
+
+
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public String getUsername() {
         return username;

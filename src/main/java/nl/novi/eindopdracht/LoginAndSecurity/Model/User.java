@@ -2,6 +2,7 @@ package nl.novi.eindopdracht.LoginAndSecurity.Model;
 
 
 import jakarta.persistence.*;
+import nl.novi.eindopdracht.Image.ImageData;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,12 +13,19 @@ public class User {
 
 
     // Deze eerste 3 variabelen zijn verplicht om te kunnen inloggen met een username, password en rol.
+    //HIER NOG EEN NAAM TOEVOEGEN
     @Id
+
+//    @Column
+//    private String name;
     @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false, length = 255)
     private String password;
+
+    @Column
+    private String email;
 
     @OneToMany(
             targetEntity = Authority.class,
@@ -36,9 +44,16 @@ public class User {
     @Column
     private String apikey;
 
-    @Column
-    private String email;
+    @OneToOne(mappedBy = "user")
+    private ImageData imageData;
 
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public String getUsername() { return username; }
     public void setUsername(String username) {
@@ -65,4 +80,11 @@ public class User {
         this.authorities.remove(authority);
     }
 
+    public  ImageData getImageData() {
+        return imageData;
+    }
+
+    public void setImage(ImageData imageData) {
+        this.imageData = imageData;
+    }
 }

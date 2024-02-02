@@ -99,6 +99,7 @@ public class UserService {
 
         var dto = new UserDto();
 
+//        dto.name = user.getName();
         dto.username = user.getUsername();
         dto.password = user.getPassword();
         dto.enabled = user.isEnabled();
@@ -113,6 +114,7 @@ public class UserService {
 
         var user = new User();
 
+//        user.setName(userDto.getName());
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEnabled(userDto.getEnabled());

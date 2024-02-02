@@ -60,11 +60,11 @@ public class SpringSecurityConfig {
                                         //Inloggen
                                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                                         //profiel informatie ophalen
-                                        .requestMatchers(HttpMethod.GET,"/users/{username}").hasAnyRole()
+                                        .requestMatchers(HttpMethod.GET,"/users/{username}").hasAnyRole("USER", "ADMIN")
                                         //Hele lijst users ophalen
                                         .requestMatchers(HttpMethod.GET,"/users/users").hasRole("ADMIN")
                                         //Profiel informatie wijzigen
-                                        .requestMatchers(HttpMethod.PUT,"/users/{username}").hasAnyRole()
+                                        .requestMatchers(HttpMethod.PUT,"/users/{username}").hasAnyRole("USER", "ADMIN")
                                         //Verwijderen users
                                         .requestMatchers(HttpMethod.DELETE, "/users/{username}").hasRole("ADMIN")
                                         //addUserAuthority
@@ -78,9 +78,9 @@ public class SpringSecurityConfig {
                                         // verwijderen van activiteit
                                         .requestMatchers(HttpMethod.DELETE, "/edit-activities/{id}").hasRole("ADMIN")
                                         //Ophalen van alle activiteiten
-                                        .requestMatchers(HttpMethod.GET,"/activities").hasAnyRole()
+                                        .requestMatchers(HttpMethod.GET,"/activities").hasAnyRole("USER", "ADMIN")
                                         //Ophalen van activity met id
-                                        .requestMatchers(HttpMethod.GET,"/activities/{id}").hasAnyRole()
+                                        .requestMatchers(HttpMethod.GET,"/activities/{id}").hasAnyRole("USER", "ADMIN")
                                         //toevoegen van informatie aan de game course
                                         .requestMatchers(HttpMethod.POST, "/post-information").hasRole("ADMIN")
                                         //Aanpassen van informatie van game course
@@ -88,7 +88,7 @@ public class SpringSecurityConfig {
                                         // verwijderen van informatie van game course
                                         .requestMatchers(HttpMethod.DELETE, "/information/{id}").hasRole("ADMIN")
                                         //ophalen van alle content van course
-                                        .requestMatchers(HttpMethod.GET,"/information").hasAnyRole()
+                                        .requestMatchers(HttpMethod.GET,"/information").hasAnyRole("USER", "ADMIN")
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")
 
