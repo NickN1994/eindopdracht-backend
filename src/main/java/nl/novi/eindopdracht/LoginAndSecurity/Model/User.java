@@ -2,6 +2,7 @@ package nl.novi.eindopdracht.LoginAndSecurity.Model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import nl.novi.eindopdracht.Image.ImageData;
 
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
 public class User {
 
     @Column
+    @NotBlank
     private String name;
 
     // Deze eerste 3 variabelen zijn verplicht om te kunnen inloggen met een username, password en rol.
@@ -19,12 +21,15 @@ public class User {
     @Id
 
     @Column(nullable = false, unique = true)
+    @NotBlank
     private String username;
 
     @Column(nullable = false, length = 255)
+    @NotBlank
     private String password;
 
     @Column
+    @NotBlank
     private String email;
 
     @OneToMany(
