@@ -16,12 +16,13 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    @Value("${spring.mail.username}")
+    @Value("${emailJavaMailer}")
     private String sendTo;
 
     public void sendEmail (EmailDto emailDto) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(sendTo);
+        mailMessage.setSubject("Nieuw bericht van " + emailDto.getName());
         mailMessage.setText("Naam: " + emailDto.getName() + "\n" +
                             "Telefoonnummer: " + emailDto.getPhoneNumber() + "\n" +
                             "Email: " + emailDto.getEmailSender() + "\n" +
