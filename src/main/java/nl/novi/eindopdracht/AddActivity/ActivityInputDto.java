@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class ActivityInputDto {
 
+
+    private Long id;
     private String name;
     private int participants;
     private String teacher;

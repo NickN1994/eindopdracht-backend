@@ -6,6 +6,7 @@ import nl.novi.eindopdracht.Courses.Game.Dto.InformationInputDto;
 import nl.novi.eindopdracht.Courses.Game.Dto.InformationOutputDto;
 
 import nl.novi.eindopdracht.Courses.Game.Service.InformationService;
+import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -24,9 +25,9 @@ public class InformationController {
         this.informationService = informationService;
     }
 
-    // HIER OBJECT IPV INFORMATIONOUTPUTDTO anders krijg ik foutmelding op de return bij een error
-    @PostMapping("/post-information")
-    public ResponseEntity<Object> createInformation (@RequestBody InformationInputDto informationInputDto, BindingResult br) {
+
+    @PostMapping("/information")
+    public ResponseEntity<InformationOutputDto> createInformation (@RequestBody InformationInputDto informationInputDto, BindingResult br) {
         if (br.hasFieldErrors()) {
             StringBuilder sb = new StringBuilder();
             for (FieldError fe : br.getFieldErrors()) {
@@ -35,7 +36,7 @@ public class InformationController {
                 sb.append(fe.getDefaultMessage());
                 sb.append("\n");
             }
-            return ResponseEntity.badRequest().body(sb.toString());
+            throw new RecordNotFoundException("Informatie niet aangemaakt.");
         } else {
 
             InformationOutputDto dto = informationService.createInformation(informationInputDto);
@@ -62,11 +63,13 @@ public class InformationController {
 //        return ResponseEntity.ok().body(subjectOutputDto);
 //    }
 //
-//    @GetMapping("/information/name/{nameSubject}")
-//    public ResponseEntity<InformationOutputDto> getInformationByTitle (@PathVariable String title) {
-//        InformationOutputDto subject = informationService.getInformationByTitle(title);
-//        return ResponseEntity.ok().body(subject);
-//    }
+
+//    Information per title aanpassen
+    @GetMapping("/information/name/{nameSubject}")
+    public ResponseEntity<InformationOutputDto> getInformationByTitle (@PathVariable String title) {
+        InformationOutputDto subject = informationService.getInformationByTitle(title);
+        return ResponseEntity.ok().body(subject);
+    }
 
     @PutMapping("/information/{id}")
     public ResponseEntity<InformationOutputDto> updateInformation (@PathVariable Long id, @Valid @RequestBody InformationInputDto informationInputDto) {
