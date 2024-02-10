@@ -105,10 +105,17 @@ public class SpringSecurityConfig {
                                         //ophalen van alle content van course
                                         .requestMatchers(HttpMethod.GET,"/information").hasAnyRole("USER", "ADMIN")
 
+                                        //ophalen van specifieke content van course
+                                        .requestMatchers(HttpMethod.GET,"/information/{id}").hasAnyRole("USER", "ADMIN")
+
                                         //uploaden van een image
                                         .requestMatchers(HttpMethod.POST,"/image").hasAnyRole("USER", "ADMIN")
 
                                         .requestMatchers(HttpMethod.GET,"/image/{username}").hasAnyRole("USER", "ADMIN")
+
+//                                        .requestMatchers(HttpMethod.PUT,"/image/{username}").hasAnyRole("USER", "ADMIN")
+
+                                        .requestMatchers(HttpMethod.DELETE,"/image/{username}").hasAnyRole("USER", "ADMIN")
 
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")

@@ -74,9 +74,9 @@ public class UserService {
             if (newUser.getUsername() != null) {
                 user1.setUsername(newUser.getUsername());
             }
-            if (newUser.getUsername() != null) {
-                user1.setUsername(newUser.getUsername());
-            }
+//            if (newUser.getUsername() != null) {
+//                user1.setUsername(newUser.getUsername());
+//            }
             if (newUser.getPassword() != null) {
                 user1.setPassword(passwordEncoder.encode(newUser.password));
             }

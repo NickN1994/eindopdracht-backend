@@ -50,15 +50,7 @@ public class InformationController {
         }
     }
 
-//    @PostMapping("/information")
-//    public ResponseEntity<InformationOutputDto> createInformation (@RequestBody InformationInputDto informationInputDto) {
-//
-//
-//            InformationOutputDto dto = informationService.createInformation(informationInputDto);
-//
-//            return ResponseEntity.created(null).body(dto);
-//
-//    }
+
 
     @GetMapping("/information")
     public ResponseEntity<List<InformationOutputDto>> getAllInformation () {
@@ -67,19 +59,12 @@ public class InformationController {
         return ResponseEntity.ok().body(dtos);
     }
 
-//    @GetMapping("/information/{id}")
-//    public ResponseEntity<InformationOutputDto> getInformationById (@PathVariable ("id") Long id) {
-//        InformationOutputDto subjectOutputDto = informationService.getInformationById(id);
-//        return ResponseEntity.ok().body(subjectOutputDto);
-//    }
-//
-
-//    Information per title aanpassen
-    @GetMapping("/information/name/{nameSubject}")
-    public ResponseEntity<InformationOutputDto> getInformationByTitle (@PathVariable String title) {
-        InformationOutputDto subject = informationService.getInformationByTitle(title);
-        return ResponseEntity.ok().body(subject);
+    @GetMapping("/information/{id}")
+    public ResponseEntity<InformationOutputDto> getInformationById (@PathVariable ("id") Long id) {
+        InformationOutputDto subjectOutputDto = informationService.getInformationById(id);
+        return ResponseEntity.ok().body(subjectOutputDto);
     }
+
 
     @PutMapping("/information/{id}")
     public ResponseEntity<InformationOutputDto> updateInformation (@PathVariable Long id, @Valid @RequestBody InformationInputDto informationInputDto) {
