@@ -92,4 +92,7 @@ public class User {
     public void setImage(ImageData imageData) {
         this.imageData = imageData;
     }
+
+    public void setImageData(Object o) {
+    }
 }
