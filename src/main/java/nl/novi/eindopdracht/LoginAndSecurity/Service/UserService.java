@@ -1,7 +1,6 @@
 package nl.novi.eindopdracht.LoginAndSecurity.Service;
 
 
-import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.eindopdracht.LoginAndSecurity.Dto.UserDto;
 import nl.novi.eindopdracht.LoginAndSecurity.Model.Authority;
 import nl.novi.eindopdracht.LoginAndSecurity.Model.User;
@@ -65,12 +64,38 @@ public class UserService {
         userRepository.deleteById(username);
     }
 
-    public void updateUser(String username, UserDto newUser) {
-        if (!userRepository.existsById(username)) throw new RecordNotFoundException();
-        User user = userRepository.findById(username).get();
-        user.setPassword(passwordEncoder.encode(newUser.password));
-        userRepository.save(user);
+    public UserDto updateUser(String username, UserDto newUser) {
+        Optional<User> user = userRepository.findById(username);
+        if (user.isPresent()) {
+            User user1 = user.get();
+            if (newUser.getName() != null) {
+                user1.setName(newUser.getName());
+            }
+            if (newUser.getUsername() != null) {
+                user1.setUsername(newUser.getUsername());
+            }
+            if (newUser.getUsername() != null) {
+                user1.setUsername(newUser.getUsername());
+            }
+            if (newUser.getPassword() != null) {
+                user1.setPassword(passwordEncoder.encode(newUser.password));
+            }
+            if (newUser.getEmail() != null) {
+                user1.setEmail(newUser.getEmail());
+            }
+            User updatedUser = userRepository.save(user1);
+            return fromUser(updatedUser);
+        } else {
+            throw new UsernameNotFoundException("Gebruiker kan niet bewerkt worden.");
+        }
     }
+
+//        if (!userRepository.existsById(username)) throw new RecordNotFoundException();
+//        User user = userRepository.findById(username).get();
+//        user.setName();
+//        user.setPassword(passwordEncoder.encode(newUser.password));
+//        userRepository.save(user);
+//    }
 
     public Set<Authority> getAuthorities(String username) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);

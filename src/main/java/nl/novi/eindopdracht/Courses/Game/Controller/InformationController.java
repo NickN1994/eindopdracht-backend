@@ -50,6 +50,16 @@ public class InformationController {
         }
     }
 
+//    @PostMapping("/information")
+//    public ResponseEntity<InformationOutputDto> createInformation (@RequestBody InformationInputDto informationInputDto) {
+//
+//
+//            InformationOutputDto dto = informationService.createInformation(informationInputDto);
+//
+//            return ResponseEntity.created(null).body(dto);
+//
+//    }
+
     @GetMapping("/information")
     public ResponseEntity<List<InformationOutputDto>> getAllInformation () {
         List<InformationOutputDto> dtos;

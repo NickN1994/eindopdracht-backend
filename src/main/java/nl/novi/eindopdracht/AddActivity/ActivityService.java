@@ -40,6 +40,7 @@ public class ActivityService {
     public ActivityOutputDto transferToDto (Activity activity) {
         ActivityOutputDto dto = new ActivityOutputDto();
 
+        dto.setId(activity.getId());
         dto.setName(activity.getName());
         dto.setParticipants(activity.getParticipants());
         dto.setTeacher(activity.getTeacher());

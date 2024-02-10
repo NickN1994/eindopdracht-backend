@@ -59,36 +59,57 @@ public class SpringSecurityConfig {
 //                                        .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                                         //Inloggen
                                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
+
                                         //profiel informatie ophalen
                                         .requestMatchers(HttpMethod.GET,"/users/{username}").hasAnyRole("USER", "ADMIN")
+
                                         //Hele lijst users ophalen
                                         .requestMatchers(HttpMethod.GET,"/users/users").hasRole("ADMIN")
+
                                         //Profiel informatie wijzigen
                                         .requestMatchers(HttpMethod.PUT,"/users/{username}").hasAnyRole("USER", "ADMIN")
+
                                         //Verwijderen users
                                         .requestMatchers(HttpMethod.DELETE, "/users/{username}").hasRole("ADMIN")
+
                                         //addUserAuthority
                                         .requestMatchers(HttpMethod.POST, "/users/{username}/authorities").hasRole("ADMIN")
+
                                         //deleteUserAuthority
                                         .requestMatchers(HttpMethod.DELETE, "/users/{username}/authorities/{authority}").hasRole("ADMIN")
+
                                         //Toevoegen van activiteit
-                                        .requestMatchers(HttpMethod.POST, "/add-activity").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.POST, "/activities").hasRole("ADMIN")
+
                                         //Aanpassen van activiteit
-                                        .requestMatchers(HttpMethod.PUT, "/edit-activities/{id}").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.PUT, "/activities/{id}").hasRole("ADMIN")
+
                                         // verwijderen van activiteit
-                                        .requestMatchers(HttpMethod.DELETE, "/edit-activities/{id}").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.DELETE, "/activities/{id}").hasRole("ADMIN")
+
                                         //Ophalen van alle activiteiten
                                         .requestMatchers(HttpMethod.GET,"/activities").hasAnyRole("USER", "ADMIN")
+
                                         //Ophalen van activity met id
                                         .requestMatchers(HttpMethod.GET,"/activities/{id}").hasAnyRole("USER", "ADMIN")
+
                                         //toevoegen van informatie aan de game course
-                                        .requestMatchers(HttpMethod.POST, "/post-information").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.POST, "/information").hasRole("ADMIN")
+
                                         //Aanpassen van informatie van game course
                                         .requestMatchers(HttpMethod.PUT, "/information/{id}").hasRole("ADMIN")
+
                                         // verwijderen van informatie van game course
                                         .requestMatchers(HttpMethod.DELETE, "/information/{id}").hasRole("ADMIN")
+
                                         //ophalen van alle content van course
                                         .requestMatchers(HttpMethod.GET,"/information").hasAnyRole("USER", "ADMIN")
+
+                                        //uploaden van een image
+                                        .requestMatchers(HttpMethod.POST,"/image").hasAnyRole("USER", "ADMIN")
+
+                                        .requestMatchers(HttpMethod.GET,"/image/{username}").hasAnyRole("USER", "ADMIN")
+
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")
 

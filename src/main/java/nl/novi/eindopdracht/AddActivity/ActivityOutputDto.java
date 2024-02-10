@@ -12,7 +12,8 @@ public class ActivityOutputDto {
     private String time;
     private String activityInfo;
 
-    public ActivityOutputDto(String name, int participants, String teacher, LocalDate date, String time, String activityInfo) {
+    public ActivityOutputDto(Long id,String name, int participants, String teacher, LocalDate date, String time, String activityInfo) {
+        this.id = id;
         this.name = name;
         this.participants = participants;
         this.teacher = teacher;

@@ -20,7 +20,7 @@ public class ImageData {
     private byte[] imageData;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "username")
+    @JoinColumn(name = "user_username", referencedColumnName = "username")
     private User user;
 
     public ImageData() {
@@ -58,10 +58,13 @@ public class ImageData {
         this.user = user;
     }
 
-    public void setImageData(byte[] bytes) {
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public byte[] getImageData() {
-        return getImageData();
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
+
+
 }
