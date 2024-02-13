@@ -3,6 +3,7 @@ package nl.novi.eindopdracht.Subscribe;
 import jakarta.transaction.Transactional;
 import nl.novi.eindopdracht.AddActivity.Activity;
 import nl.novi.eindopdracht.AddActivity.ActivityRepository;
+import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.eindopdracht.LoginAndSecurity.Model.User;
 import nl.novi.eindopdracht.LoginAndSecurity.Repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,22 +25,28 @@ public class SubscribeService {
 
     @Transactional
     public SubscribeDto createSubscription(SubscribeDto subscribeDto) {
-        // Zoek de gebruiker en activiteit op basis van ID
-        User user = userRepository.findById(subscribeDto.getUserId())
-                .orElseThrow(() -> new RuntimeException("Gebruiker niet gevonden."));
+
+        User user = userRepository.findByUsername(subscribeDto.getUserId())
+                .orElseThrow(() -> new RecordNotFoundException("Gebruiker niet gevonden."));
+
         Activity activity = activityRepository.findById(subscribeDto.getActivityId())
-                .orElseThrow(() -> new RuntimeException("Activiteit niet gevonden."));
+                .orElseThrow(() -> new RecordNotFoundException("Activiteit niet gevonden."));
 
-        // Optioneel: Voeg hier logica toe om te controleren of de inschrijving al bestaat of dat de activiteit vol is
+        if (subscribeRepository.findByUserUsernameAndActivityId(user.getUsername(), activity.getId()).isPresent()) {
+            throw new RecordNotFoundException("Gebruiker is al ingeschreven voor deze activiteit.");
+        }
 
-        // Maak een nieuwe inschrijving aan en sla deze op
+        int currentSubscriptions = subscribeRepository.countByActivityId(activity.getId());
+        if (currentSubscriptions >= activity.getParticipants()) {
+            throw new RecordNotFoundException("Activiteit is vol.");
+        }
+
         Subscribe subscribe = new Subscribe();
         subscribe.setUser(user);
         subscribe.setActivity(activity);
 
         Subscribe savedSubscribe = subscribeRepository.save(subscribe);
 
-        // Stel de ID van de opgeslagen inschrijving in op de DTO en retourneer deze
         subscribeDto.setId(savedSubscribe.getId());
         return subscribeDto;
     }
