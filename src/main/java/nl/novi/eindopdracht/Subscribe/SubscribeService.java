@@ -51,4 +51,13 @@ public class SubscribeService {
         return subscribeDto;
     }
 
+    public void cancelSubscription(Long subscribeId) {
+        subscribeRepository.deleteById(subscribeId);
+    }
+
+    public int countSubscriptionsByActivityId(Long activityId) {
+        return subscribeRepository.countByActivityId(activityId);
+    }
+
+
 }

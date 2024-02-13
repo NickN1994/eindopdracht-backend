@@ -2,6 +2,7 @@ package nl.novi.eindopdracht.AddActivity;
 
 import jakarta.validation.Valid;
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
+import nl.novi.eindopdracht.Subscribe.SubscribeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,18 +11,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ActivityController {
 
     private final ActivityService activityService;
 
+    private final SubscribeService subscribeService;
+
     private final ActivityRepository activityRepository;
 
 
-    public ActivityController(ActivityService activityService, ActivityRepository activityRepository) {
+    public ActivityController(ActivityService activityService, SubscribeService subscribeService, ActivityRepository activityRepository) {
         this.activityService = activityService;
+        this.subscribeService = subscribeService;
         this.activityRepository = activityRepository;
     }
 
@@ -74,6 +77,14 @@ public class ActivityController {
     public ResponseEntity<Object> deleteActivity (@PathVariable Long id) {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{activityId}/available-spots")
+    public ResponseEntity<Integer> getAvailableSpotsForActivity(@PathVariable Long activityId) {
+        Activity activity = activityService.findActivityById(activityId);
+        int totalSubscriptions = subscribeService.countSubscriptionsByActivityId(activityId);
+        int availableSpots = activity.getParticipants() - totalSubscriptions;
+        return ResponseEntity.ok(availableSpots);
     }
 
 

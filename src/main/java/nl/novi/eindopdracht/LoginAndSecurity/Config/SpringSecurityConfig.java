@@ -117,6 +117,10 @@ public class SpringSecurityConfig {
 
                                         .requestMatchers(HttpMethod.DELETE,"/image/{username}").hasAnyRole("USER", "ADMIN")
 
+                                        .requestMatchers(HttpMethod.POST,"/subscribe").hasAnyRole("USER", "ADMIN")
+
+                                        .requestMatchers(HttpMethod.GET,"/activities/{activityId}/subscribers").hasRole("ADMIN")
+
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")
 

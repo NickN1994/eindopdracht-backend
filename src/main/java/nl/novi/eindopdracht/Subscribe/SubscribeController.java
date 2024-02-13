@@ -1,14 +1,13 @@
 package nl.novi.eindopdracht.Subscribe;
 
-import org.springframework.http.HttpStatus;
+import nl.novi.eindopdracht.AddActivity.Activity;
+import nl.novi.eindopdracht.AddActivity.ActivityService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/subscribe")
@@ -16,8 +15,11 @@ public class SubscribeController {
 
     private final SubscribeService subscribeService;
 
-    public SubscribeController(SubscribeService subscribeService) {
+    private final ActivityService activityService;
+
+    public SubscribeController(SubscribeService subscribeService, ActivityService activityService) {
         this.subscribeService = subscribeService;
+        this.activityService = activityService;
     }
 
     @PostMapping
@@ -34,5 +36,28 @@ public class SubscribeController {
 
         return ResponseEntity.created(uri).body(savedSubscribeDto);
     }
+
+    //ophalen hoeveel beschikbare plekken
+//    @GetMapping("/activities/{activityId}/available-spots")
+//    public ResponseEntity<Integer> getAvailableSpotsForActivity(@PathVariable Long activityId) {
+//        Activity activity = activityService.findActivityById(activityId);
+//        int totalSubscriptions = subscribeService.countSubscriptionsByActivityId(activityId);
+//        int availableSpots = activity.getParticipants() - totalSubscriptions;
+//        return ResponseEntity.ok(availableSpots);
+//    }
+
+    // lijst met gebruikers ophalen voor de admin
+    @GetMapping("/activities/{activityId}/subscribers")
+    public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable Long activityId) {
+        List<String> usernames = activityService.getSubscribedUsernamesForActivity(activityId);
+        return ResponseEntity.ok(usernames);
+    }
+
+    @DeleteMapping("/subscribe/{subscribeId}")
+    public ResponseEntity<Void> cancelSubscription(@PathVariable Long subscribeId) {
+        subscribeService.cancelSubscription(subscribeId);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
