@@ -113,13 +113,15 @@ public class SpringSecurityConfig {
 
                                         .requestMatchers(HttpMethod.GET,"/image/{username}").hasAnyRole("USER", "ADMIN")
 
-//                                        .requestMatchers(HttpMethod.PUT,"/image/{username}").hasAnyRole("USER", "ADMIN")
-
                                         .requestMatchers(HttpMethod.DELETE,"/image/{username}").hasAnyRole("USER", "ADMIN")
+
+                                        .requestMatchers(HttpMethod.DELETE,"/subscribe/{subscribeId}").hasAnyRole("USER", "ADMIN")
 
                                         .requestMatchers(HttpMethod.POST,"/subscribe").hasAnyRole("USER", "ADMIN")
 
                                         .requestMatchers(HttpMethod.GET,"/activities/{activityId}/subscribers").hasRole("ADMIN")
+
+                                        .requestMatchers(HttpMethod.GET,"/{activityId}/available-spots").hasAnyRole("USER", "ADMIN")
 
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")

@@ -37,15 +37,6 @@ public class SubscribeController {
         return ResponseEntity.created(uri).body(savedSubscribeDto);
     }
 
-    //ophalen hoeveel beschikbare plekken
-//    @GetMapping("/activities/{activityId}/available-spots")
-//    public ResponseEntity<Integer> getAvailableSpotsForActivity(@PathVariable Long activityId) {
-//        Activity activity = activityService.findActivityById(activityId);
-//        int totalSubscriptions = subscribeService.countSubscriptionsByActivityId(activityId);
-//        int availableSpots = activity.getParticipants() - totalSubscriptions;
-//        return ResponseEntity.ok(availableSpots);
-//    }
-
     // lijst met gebruikers ophalen voor de admin
     @GetMapping("/activities/{activityId}/subscribers")
     public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable Long activityId) {
