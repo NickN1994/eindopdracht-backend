@@ -73,6 +73,4 @@ public class SubscribeService {
         return subscribeRepository.findByUserUsernameAndActivityId(username, activityId).isPresent();
     }
 
-
-
 }

@@ -129,6 +129,9 @@ public class SpringSecurityConfig {
                                         // ophalen van van activiteiten waar gebruiker voor ingeschreven staat
                                         .requestMatchers(HttpMethod.GET,"/subscribe/user/{username}").hasAnyRole("USER", "ADMIN")
 
+                                        // controleren of gebruiker al ingeschreven staat voor activiteit
+                                        .requestMatchers(HttpMethod.GET,"/activities/{activityId}/is-subscribed").hasAnyRole("USER", "ADMIN")
+
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")
 
