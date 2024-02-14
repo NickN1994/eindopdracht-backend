@@ -24,10 +24,10 @@ public class SubscribeController {
 
     @PostMapping
     public ResponseEntity<SubscribeDto> createSubscription(@RequestBody SubscribeDto subscribeDto) {
-        // Aanroep naar de service laag, waar we aannemen dat elke nodige validatie of exception handling plaatsvindt.
+
         SubscribeDto savedSubscribeDto = subscribeService.createSubscription(subscribeDto);
 
-        // Als de inschrijving succesvol is, construeren we de URI van de aangemaakte resource en sturen een 201 Created response terug.
+
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -38,17 +38,31 @@ public class SubscribeController {
     }
 
     // lijst met gebruikers ophalen voor de admin
-    @GetMapping("/activities/{activityId}/subscribers")
-    public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable Long activityId) {
+    @GetMapping("/{activityId}/subscribers")
+    public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable("activityId") Long activityId) {
         List<String> usernames = activityService.getSubscribedUsernamesForActivity(activityId);
         return ResponseEntity.ok(usernames);
     }
 
-    @DeleteMapping("/subscribe/{subscribeId}")
-    public ResponseEntity<Void> cancelSubscription(@PathVariable Long subscribeId) {
+    // uitschrijving
+    @DeleteMapping("/{subscribeId}")
+    public ResponseEntity<Object> cancelSubscription(@PathVariable ("subscribeId") Long subscribeId) {
         subscribeService.cancelSubscription(subscribeId);
         return ResponseEntity.noContent().build();
     }
 
+    // ophalen van de activiteiten waar gebruiker staat voor ingeschreven
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<Activity>> getSubscribedActivities(@PathVariable ("username") String username) {
+        List<Activity> subscribedActivities = subscribeService.getActivitiesSubscribedByUser(username);
+        return ResponseEntity.ok(subscribedActivities);
+    }
+
+    // controleren of de al staat ingeschreven voor een activiteit
+    @GetMapping("/activities/{activityId}/is-subscribed")
+    public ResponseEntity<Boolean> checkUserSubscription(@PathVariable("activityId") Long activityId, @RequestParam("username") String username) {
+        boolean isSubscribed = subscribeService.isUserSubscribedToActivity(username, activityId);
+        return ResponseEntity.ok(isSubscribed);
+    }
 
 }

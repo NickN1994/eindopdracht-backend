@@ -68,19 +68,19 @@ public class ActivityController {
     }
 
     @PutMapping("/activities/{id}")
-    public ResponseEntity<Object> updateActivity (@PathVariable Long id, @Valid @RequestBody ActivityInputDto updateActivity) {
+    public ResponseEntity<ActivityOutputDto> updateActivity (@PathVariable Long id, @Valid @RequestBody ActivityInputDto updateActivity) {
         ActivityOutputDto dto = activityService.updateActivity(id, updateActivity);
         return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping ("/activities/{id}")
-    public ResponseEntity<Object> deleteActivity (@PathVariable Long id) {
+    public ResponseEntity<ActivityOutputDto> deleteActivity (@PathVariable("id") Long id) {
         activityService.deleteActivity(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{activityId}/available-spots")
-    public ResponseEntity<Integer> getAvailableSpotsForActivity(@PathVariable Long activityId) {
+    public ResponseEntity<Integer> getAvailableSpotsForActivity(@PathVariable("activityId") Long activityId) {
         Activity activity = activityService.findActivityById(activityId);
         int totalSubscriptions = subscribeService.countSubscriptionsByActivityId(activityId);
         int availableSpots = activity.getParticipants() - totalSubscriptions;

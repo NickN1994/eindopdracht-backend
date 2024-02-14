@@ -1,5 +1,6 @@
 package nl.novi.eindopdracht.AddActivity;
 
+import nl.novi.eindopdracht.Courses.Game.Models.Information;
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.eindopdracht.Subscribe.SubscribeRepository;
 import org.springframework.stereotype.Service;
@@ -109,7 +110,13 @@ public class ActivityService {
     }
 
     public void deleteActivity (@RequestBody Long id) {
-        activityRepository.deleteById(id);
+        Optional<Activity> activityOptional = activityRepository.findById(id);
+        if (activityOptional.isPresent()) {
+            activityRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("Geen activiteit gevonden");
+        }
+
     }
 
     public List<String> getSubscribedUsernamesForActivity(Long activityId) {

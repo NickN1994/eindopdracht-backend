@@ -12,5 +12,7 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
 
     List<Subscribe> findAllByActivityId(Long activityId);
 
+    List<Subscribe> findByUserUsername(String username);
+
 
 }

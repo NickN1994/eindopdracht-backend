@@ -8,6 +8,9 @@ import nl.novi.eindopdracht.LoginAndSecurity.Model.User;
 import nl.novi.eindopdracht.LoginAndSecurity.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SubscribeService {
 
@@ -58,6 +61,18 @@ public class SubscribeService {
     public int countSubscriptionsByActivityId(Long activityId) {
         return subscribeRepository.countByActivityId(activityId);
     }
+
+    public List<Activity> getActivitiesSubscribedByUser(String username) {
+        List<Subscribe> subscriptions = subscribeRepository.findByUserUsername(username);
+        return subscriptions.stream()
+                .map(Subscribe::getActivity)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isUserSubscribedToActivity(String username, Long activityId) {
+        return subscribeRepository.findByUserUsernameAndActivityId(username, activityId).isPresent();
+    }
+
 
 
 }

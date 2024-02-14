@@ -3,6 +3,7 @@ package nl.novi.eindopdracht.AddActivity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,6 +28,7 @@ public class Activity {
     @NotBlank
     private String time;
     @NotBlank
+    @Lob
     private String activityInfo;
 
 

@@ -25,6 +25,7 @@ public class SubscribeDto {
         this.activity = activity;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -64,4 +65,6 @@ public class SubscribeDto {
     public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
+
+
 }

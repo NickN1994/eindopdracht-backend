@@ -117,11 +117,17 @@ public class SpringSecurityConfig {
 
                                         .requestMatchers(HttpMethod.DELETE,"/subscribe/{subscribeId}").hasAnyRole("USER", "ADMIN")
 
+                                        // inschrijven voor activiteit
                                         .requestMatchers(HttpMethod.POST,"/subscribe").hasAnyRole("USER", "ADMIN")
 
-                                        .requestMatchers(HttpMethod.GET,"/activities/{activityId}/subscribers").hasRole("ADMIN")
+                                        //ophalen van inschrijvingen van een activiteit
+                                        .requestMatchers(HttpMethod.GET,"/subscribe/{activityId}/subscribers").hasRole("ADMIN")
 
+                                        //ophalen van beschikbare plekken
                                         .requestMatchers(HttpMethod.GET,"/{activityId}/available-spots").hasAnyRole("USER", "ADMIN")
+
+                                        // ophalen van van activiteiten waar gebruiker voor ingeschreven staat
+                                        .requestMatchers(HttpMethod.GET,"/subscribe/user/{username}").hasAnyRole("USER", "ADMIN")
 
                                         //versturen bericht contact formulier
                                         .requestMatchers(HttpMethod.POST, "/send-email").hasRole("USER")

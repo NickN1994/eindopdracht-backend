@@ -95,7 +95,7 @@ public class InformationService {
         if (subjectOptional.isPresent()) {
             informationRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("Geen onderwerp gevonden");
+            throw new RecordNotFoundException("Geen content gevonden om te verwijderen");
         }
     }
 
