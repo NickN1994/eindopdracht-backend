@@ -1,22 +1,27 @@
 package nl.novi.eindopdracht.AddActivity;
 
+import nl.novi.eindopdracht.Courses.Game.Models.Information;
 import nl.novi.eindopdracht.Exceptions.RecordNotFoundException;
+import nl.novi.eindopdracht.Subscribe.SubscribeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityService {
 
     private final ActivityRepository activityRepository;
 
+    private final SubscribeRepository subscribeRepository;
 
-    public ActivityService(ActivityRepository activityRepository) {
+
+    public ActivityService(ActivityRepository activityRepository, SubscribeRepository subscribeRepository) {
         this.activityRepository = activityRepository;
+        this.subscribeRepository = subscribeRepository;
     }
 
     public ActivityOutputDto addActivity(ActivityInputDto dto) {
@@ -40,6 +45,7 @@ public class ActivityService {
     public ActivityOutputDto transferToDto (Activity activity) {
         ActivityOutputDto dto = new ActivityOutputDto();
 
+        dto.setId(activity.getId());
         dto.setName(activity.getName());
         dto.setParticipants(activity.getParticipants());
         dto.setTeacher(activity.getTeacher());
@@ -104,7 +110,25 @@ public class ActivityService {
     }
 
     public void deleteActivity (@RequestBody Long id) {
-        activityRepository.deleteById(id);
+        Optional<Activity> activityOptional = activityRepository.findById(id);
+        if (activityOptional.isPresent()) {
+            activityRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("Geen activiteit gevonden");
+        }
+
     }
+
+    public List<String> getSubscribedUsernamesForActivity(Long activityId) {
+        return subscribeRepository.findAllByActivityId(activityId).stream()
+                .map(subscribe -> subscribe.getUser().getUsername())
+                .collect(Collectors.toList());
+    }
+
+    public Activity findActivityById(Long activityId) {
+        return activityRepository.findById(activityId)
+                .orElseThrow(() -> new RecordNotFoundException("Activiteit met ID " + activityId + " niet gevonden"));
+    }
+
 
 }

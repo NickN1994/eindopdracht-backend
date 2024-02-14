@@ -1,20 +1,20 @@
 package nl.novi.eindopdracht.SendEmail;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public class EmailDto {
+public class Email {
 
 
+    @NotBlank
     private final String name;
 
     private final String phoneNumber;
-
+    @NotBlank @jakarta.validation.constraints.Email
     private final String emailSender;
-
+    @NotBlank
     private final String message;
 
-    public EmailDto(String name, String phoneNumber, String emailSender, String message) {
+    public Email(String name, String phoneNumber, String emailSender, String message) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailSender = emailSender;
@@ -36,5 +36,6 @@ public class EmailDto {
     public String getMessage() {
         return message;
     }
+
 
 }

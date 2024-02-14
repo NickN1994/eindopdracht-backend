@@ -49,7 +49,7 @@ public class User {
     @Column
     private String apikey;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private ImageData imageData;
 
     public String getName() {
@@ -91,5 +91,8 @@ public class User {
 
     public void setImage(ImageData imageData) {
         this.imageData = imageData;
+    }
+
+    public void setImageData(Object o) {
     }
 }

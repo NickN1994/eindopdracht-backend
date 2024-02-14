@@ -75,10 +75,17 @@ public class InformationService {
             if (informationInputDto.getTitle() != null) {
                 information.setTitle(informationInputDto.getTitle());
             }
+            if (informationInputDto.getVideoUrl() != null) {
+                information.setVideoUrl(informationInputDto.getVideoUrl());
+            }
+            if (informationInputDto.getContent() != null) {
+                information.setContent(informationInputDto.getContent());
+            }
+
             Information updatedInfo = informationRepository.save(information);
             return transferToDto(updatedInfo);
         } else {
-            throw new RecordNotFoundException("Geen onderwerp gevonden.");
+            throw new RecordNotFoundException("Geen content gevonden om aan te passen.");
         }
     }
 
@@ -88,7 +95,7 @@ public class InformationService {
         if (subjectOptional.isPresent()) {
             informationRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("Geen onderwerp gevonden");
+            throw new RecordNotFoundException("Geen content gevonden om te verwijderen");
         }
     }
 

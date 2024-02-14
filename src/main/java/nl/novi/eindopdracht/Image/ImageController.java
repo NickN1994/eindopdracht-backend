@@ -1,6 +1,7 @@
 package nl.novi.eindopdracht.Image;
 
 
+import nl.novi.eindopdracht.Courses.Game.Dto.InformationOutputDto;
 import nl.novi.eindopdracht.LoginAndSecurity.Model.User;
 import nl.novi.eindopdracht.LoginAndSecurity.Repository.UserRepository;
 import org.springframework.http.MediaType;
@@ -41,6 +42,15 @@ public class ImageController {
         Optional<ImageData> dbImageData = imageDataRepository.findById(user.get().getImageData().getId());
         MediaType mediaType = MediaType.valueOf(dbImageData.get().getType());
         return  ResponseEntity.ok().contentType(mediaType).body(image);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Object> deleteImage (@PathVariable("username") String username) throws IOException {
+
+        imageDataService.deleteImage(username);
+
+        return ResponseEntity.noContent().build();
+
     }
 
 }
