@@ -119,9 +119,9 @@ public class ActivityService {
 
     }
 
-    public List<String> getSubscribedUsernamesForActivity(Long activityId) {
+    public List<String> getSubscribedNamesForActivity(Long activityId) {
         return subscribeRepository.findAllByActivityId(activityId).stream()
-                .map(subscribe -> subscribe.getUser().getUsername())
+                .map(subscribe -> subscribe.getUser().getName())
                 .collect(Collectors.toList());
     }
 

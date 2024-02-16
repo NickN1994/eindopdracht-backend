@@ -41,9 +41,10 @@ public class SubscribeController {
     // lijst met gebruikers ophalen voor de admin
     @GetMapping("/{activityId}/subscribers")
     public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable("activityId") Long activityId) {
-        List<String> usernames = activityService.getSubscribedUsernamesForActivity(activityId);
-        return ResponseEntity.ok(usernames);
+        List<String> names = activityService.getSubscribedNamesForActivity(activityId); // Update naar de nieuwe methode
+        return ResponseEntity.ok(names);
     }
+
 
     // uitschrijving
     @DeleteMapping("/{subscribeId}")
@@ -74,6 +75,5 @@ public class SubscribeController {
                 .map(subscribe -> ResponseEntity.ok(subscribe.getId()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 
 }
