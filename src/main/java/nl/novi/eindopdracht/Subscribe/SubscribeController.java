@@ -46,7 +46,7 @@ public class SubscribeController {
     }
 
 
-    // uitschrijving
+    // uitschrijving van activiteit
     @DeleteMapping("/{subscribeId}")
     public ResponseEntity<Object> cancelSubscription(@PathVariable ("subscribeId") Long subscribeId) {
         subscribeService.cancelSubscription(subscribeId);
