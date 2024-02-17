@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/subscribe")
@@ -40,11 +41,12 @@ public class SubscribeController {
     // lijst met gebruikers ophalen voor de admin
     @GetMapping("/{activityId}/subscribers")
     public ResponseEntity<List<String>> getSubscribersForActivity(@PathVariable("activityId") Long activityId) {
-        List<String> usernames = activityService.getSubscribedUsernamesForActivity(activityId);
-        return ResponseEntity.ok(usernames);
+        List<String> names = activityService.getSubscribedNamesForActivity(activityId); // Update naar de nieuwe methode
+        return ResponseEntity.ok(names);
     }
 
-    // uitschrijving
+
+    // uitschrijving van activiteit
     @DeleteMapping("/{subscribeId}")
     public ResponseEntity<Object> cancelSubscription(@PathVariable ("subscribeId") Long subscribeId) {
         subscribeService.cancelSubscription(subscribeId);
@@ -58,11 +60,20 @@ public class SubscribeController {
         return ResponseEntity.ok(subscribedActivities);
     }
 
-    // controleren of de al staat ingeschreven voor een activiteit
-    @GetMapping("/activities/{activityId}/is-subscribed")
-    public ResponseEntity<Boolean> checkUserSubscription(@PathVariable("activityId") Long activityId, @RequestParam("username") String username) {
+    // controleren of gebruiker al staat ingeschreven voor een activiteit
+    @GetMapping("/{username}/activities/{activityId}/is-subscribed")
+    public ResponseEntity<Boolean> checkUserSubscription(@PathVariable("activityId") Long activityId, @PathVariable String username) {
         boolean isSubscribed = subscribeService.isUserSubscribedToActivity(username, activityId);
         return ResponseEntity.ok(isSubscribed);
+    }
+
+    // username en activityId ophalen voor subscribeId
+    @GetMapping("/user/{username}/activity/{activityId}")
+    public ResponseEntity<Long> getSubscriptionId(@PathVariable("username") String username, @PathVariable("activityId") Long activityId) {
+        Optional<Subscribe> subscription = subscribeService.getSubscriptionByUserAndActivity(username, activityId);
+        return subscription
+                .map(subscribe -> ResponseEntity.ok(subscribe.getId()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

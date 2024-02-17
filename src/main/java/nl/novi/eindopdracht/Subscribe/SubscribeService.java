@@ -9,6 +9,7 @@ import nl.novi.eindopdracht.LoginAndSecurity.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,5 +73,12 @@ public class SubscribeService {
     public boolean isUserSubscribedToActivity(String username, Long activityId) {
         return subscribeRepository.findByUserUsernameAndActivityId(username, activityId).isPresent();
     }
+
+
+
+    public Optional<Subscribe> getSubscriptionByUserAndActivity(String username, Long activityId) {
+        return subscribeRepository.findByUserUsernameAndActivityId(username, activityId);
+    }
+
 
 }

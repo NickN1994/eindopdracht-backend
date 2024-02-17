@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
     int countByActivityId(Long activityId);
 
+//    Optional<Subscribe> findByUserUsernameAndActivityId(String username, Long activityId);
+
     Optional<Subscribe> findByUserUsernameAndActivityId(String username, Long activityId);
 
     List<Subscribe> findAllByActivityId(Long activityId);
@@ -15,5 +17,6 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
     List<Subscribe> findByUserUsername(String username);
 
 //    List<Subscribe> findByUserUsername(Long userId);
+
 
 }
