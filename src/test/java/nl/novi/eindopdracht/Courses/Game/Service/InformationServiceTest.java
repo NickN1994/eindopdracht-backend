@@ -45,6 +45,8 @@ class InformationServiceTest {
 
         // Assert
         InformationOutputDto result = informationService.createInformation(inputDto);
+
+        verify(informationRepository).save(any(Information.class));
     }
 
     @Test
@@ -72,6 +74,9 @@ class InformationServiceTest {
         assertEquals(information2.getTitle(), resultDtoList.get(1).getTitle());
         assertEquals(information2.getContent(), resultDtoList.get(1).getContent());
         assertEquals(information2.getVideoUrl(), resultDtoList.get(1).getVideoUrl());
+
+        verify(informationRepository, times(1)).findAll();
+
     }
 
     @Test

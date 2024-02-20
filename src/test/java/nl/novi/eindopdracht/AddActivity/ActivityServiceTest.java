@@ -58,6 +58,8 @@ class ActivityServiceTest {
         assertEquals(expectedDto.getTime(), resultDto.getTime());
         assertEquals(expectedDto.getActivityInfo(), resultDto.getActivityInfo());
 
+        verify(activityRepository).save(any(Activity.class));
+
     }
 
     @Test
@@ -91,6 +93,8 @@ class ActivityServiceTest {
         assertEquals(activity2.getDate(), resultDtoList.get(1).getDate());
         assertEquals(activity2.getTime(), resultDtoList.get(1).getTime());
         assertEquals(activity2.getActivityInfo(), resultDtoList.get(1).getActivityInfo());
+
+        Mockito.verify(activityRepository).findAll();
 
     }
 
