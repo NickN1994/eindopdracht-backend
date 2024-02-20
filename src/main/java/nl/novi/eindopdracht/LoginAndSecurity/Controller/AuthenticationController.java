@@ -24,10 +24,6 @@ public class AuthenticationController {
     private final UserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
 
-//    {
-//        "username" : "admin",
-//            "password" : "password"
-//    }
 
     public AuthenticationController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;

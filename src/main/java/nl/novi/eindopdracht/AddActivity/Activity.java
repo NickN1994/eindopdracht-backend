@@ -29,15 +29,6 @@ public class Activity {
     private String activityInfo;
 
 
-//    {
-//        "name" : "licht cirkel",
-//            "participants" : 8,
-//            "teacher" : "Kirstie",
-//            "date" : "2024-01-09",
-//            "time" : "van 10u tot 15u",
-//            "activityInfo" : "dit is een test voor deze lichtcirkel die wordt gegeven op 9 januari aanstaande"
-//    }
-
     public Activity(Long id, String name, int participants, String teacher, LocalDate date, String time, String activityInfo) {
         this.id = id;
         this.name = name;
