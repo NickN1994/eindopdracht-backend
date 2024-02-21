@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,17 +31,18 @@ public class ActivityControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        activityRepository.deleteAll();
         Activity activity = new Activity(null, "Adem coaching", 8, "Kirstie", LocalDate.parse("2024-01-09"), "van 10u tot 15u", "Dit is een test voor deze ademcirkel die wordt gegeven op 9 januari aanstaande");
         activityRepository.save(activity);
     }
 
     @AfterEach
     void tearDown() {
-
         activityRepository.deleteAll();
     }
 
     @Test
+    @WithMockUser // Simuleert een ingelogde gebruiker met standaard rollen en autorisaties
     void getAllActivity_success() throws Exception {
         mockMvc.perform(get("/activities")
                         .contentType(MediaType.APPLICATION_JSON))

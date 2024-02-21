@@ -42,7 +42,7 @@ public class InformationControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser // Simuleert een ingelogde gebruiker
+    @WithMockUser
     void getAllInformation_success() throws Exception {
         mockMvc.perform(get("/information")
                         .contentType(MediaType.APPLICATION_JSON))
