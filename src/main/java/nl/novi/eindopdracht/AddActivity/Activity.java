@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Activity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @NotBlank
