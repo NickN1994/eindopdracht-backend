@@ -1,23 +1,20 @@
 package nl.novi.eindopdracht.Courses.Game.Models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Information {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Naam onderwerp is verplicht")
     private String title;
     @NotBlank(message = "Content veld is verplicht")
-    @Lob
+    @Column(nullable = false, length = 1000)
     private String content;
     private String videoUrl;
 

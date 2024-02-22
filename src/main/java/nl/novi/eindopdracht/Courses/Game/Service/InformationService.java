@@ -45,16 +45,6 @@ public class InformationService {
         return informationOutputDtoList;
     }
 
-    //GET BY NAME
-    public InformationOutputDto getInformationByTitle (String title) {
-        Optional<Information> subjectOptional = informationRepository.findByTitle(title);
-        if (subjectOptional.isPresent()) {
-            Information information = subjectOptional.get();
-            return transferToDto(information);
-        } else {
-            throw new RecordNotFoundException("Onderwerp niet gevonden gevonden");
-        }
-    }
 
     //GET BY ID
     public InformationOutputDto getInformationById(Long id) {
