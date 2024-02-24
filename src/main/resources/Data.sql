@@ -20,4 +20,5 @@ INSERT INTO information (title, content, video_url) VALUES ('Titel voor content'
 INSERT INTO information (title, content, video_url) VALUES ('Nog een titel', 'hier komt dan de uitleg van een meditatie of een oefening te staan bijvoorbeeld', 'https://www.youtube.com/watch?v=EE-xtCF3T94');
 
 INSERT INTO subscribe (user_id, activity_id) VALUES ('user', 1);
+INSERT INTO subscribe (user_id, activity_id) VALUES ('Nick', 1);
 INSERT INTO subscribe (user_id, activity_id) VALUES ('user', 2);
